@@ -8,6 +8,8 @@ import { BookItemComponent } from './books/book-list/book-item/book-item.compone
 import { BookEditComponent } from './books/book-edit/book-edit.component';
 import { BookDetailsComponent } from './books/book-details/book-details.component';
 import { HeaderComponent } from './header/header/header.component';
+import { BookService } from './books/book.service';
+import { BooksComponent } from './books/books.component';
 
 @NgModule({
   declarations: [
@@ -16,13 +18,14 @@ import { HeaderComponent } from './header/header/header.component';
     BookItemComponent,
     BookEditComponent,
     BookDetailsComponent,
-    HeaderComponent
+    HeaderComponent,
+    BooksComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [BookService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
