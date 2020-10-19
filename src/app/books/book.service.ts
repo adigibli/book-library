@@ -1,10 +1,13 @@
 import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
 import { Book } from './Book.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BookService {
+
+  booksChanged = new Subject<Book[]>();
 
   private books: Book[] = [
     new Book(1,
@@ -21,8 +24,27 @@ export class BookService {
 
   constructor() { }
 
+  addBook(book: Book){
+    this.books.push(book);
+    this.multicastBookChanges();
+  }
+
+  editBook(index: number, book: Book): void{
+    this.books[index] = book;
+    this.multicastBookChanges();
+  }
+
+  deleteBook(index: number){
+    this.books.splice(1, index);
+    this.multicastBookChanges();
+  }
+
   getBooks(): Book[]{
     return this.books.slice();
+  }
+
+  private multicastBookChanges(): void{
+    this.booksChanged.next(this.books.slice());
   }
 
   getBook(id: number): Book{

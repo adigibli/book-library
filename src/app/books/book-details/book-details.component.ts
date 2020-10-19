@@ -1,7 +1,7 @@
 import { BookService } from './../book.service';
 import { Book } from './../Book.model';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 
 @Component({
   selector: 'app-book-details',
@@ -14,7 +14,8 @@ export class BookDetailsComponent implements OnInit {
   id: number;
 
   constructor(private bookService: BookService,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute,
+              private router: Router) { }
 
   ngOnInit(): void {
     this.route.params
@@ -24,6 +25,15 @@ export class BookDetailsComponent implements OnInit {
           this.book = this.bookService.getBook(this.id);
         }
       );
+  }
+
+  onEdit(): void{
+    this.router.navigate(['edit'], {relativeTo: this.route});
+  }
+
+  onDelete(): void{
+    this.bookService.deleteBook(this.id);
+    this.router.navigate(['/books']);
   }
 
 }
