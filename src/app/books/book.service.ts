@@ -12,7 +12,7 @@ export class BookService {
       'George R. R. Martin',
       'The scond book of the series Game of Thtones',
       'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1562726234l/13496.jpg'),
-      new Book(1,
+      new Book(2,
         'A Storm of Swords ',
         'George R. R. Martin',
         'The first book of the series Game of Thtones',
@@ -22,6 +22,10 @@ export class BookService {
   constructor() { }
 
   getBooks(): Book[]{
-    return this.books;
+    return this.books.slice();
+  }
+
+  getBook(id: number): Book{
+    return this.books[id];
   }
 }

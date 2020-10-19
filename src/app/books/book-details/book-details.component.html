@@ -1,1 +1,24 @@
-<p>book-details works!</p>
+<div class="row">
+  <div class="col-xs-12">
+    <button class="btn btn-primary">Edit</button>
+    <button class="btn btn-danger">Delete</button>
+  </div>
+</div>
+<hr>
+<div class="row">
+  <div class="col-xs-1">
+    <span class="border border-gray">
+      <img [src]="book.imagePath"
+        alt=""
+        class="img-responsive"
+        style="max-height: 200px;"
+      >
+    </span>
+  </div>
+  <div class="col-xs-11">
+    <h1>{{ book.title }}</h1>
+    <h4>By {{ book.author }}</h4>
+    <hr>
+    <p>{{ book.description }}</p>
+  </div>
+</div>

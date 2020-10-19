@@ -1,11 +1,16 @@
-import { BookListComponent } from './books/book-list/book-list.component';
+import { BookEditComponent } from './books/book-edit/book-edit.component';
+import { BookDetailsComponent } from './books/book-details/book-details.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { BooksComponent } from './books/books.component';
 
 const routes: Routes = [
-  {path: '', redirectTo:'/books', pathMatch: 'full'},
-  {path: 'books', component: BooksComponent}
+  {path: '', redirectTo: '/books', pathMatch: 'full'},
+  {path: 'books', component: BooksComponent, children: [
+    {path: '', redirectTo: '/books/0', pathMatch: 'full'},
+    {path: 'new', component: BookEditComponent},
+    {path: ':id', component: BookDetailsComponent}
+  ]}
 ];
 
 @NgModule({

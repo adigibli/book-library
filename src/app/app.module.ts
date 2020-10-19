@@ -10,6 +10,7 @@ import { BookDetailsComponent } from './books/book-details/book-details.componen
 import { HeaderComponent } from './header/header/header.component';
 import { BookService } from './books/book.service';
 import { BooksComponent } from './books/books.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,9 @@ import { BooksComponent } from './books/books.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [BookService],
   bootstrap: [AppComponent]

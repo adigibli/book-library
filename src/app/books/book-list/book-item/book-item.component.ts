@@ -8,6 +8,7 @@ import { Book } from '../../Book.model';
 })
 export class BookItemComponent implements OnInit {
   @Input() book: Book;
+  @Input() index: number;
 
   constructor() { }
 
