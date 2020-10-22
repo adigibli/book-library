@@ -24,7 +24,7 @@ export class BookService {
 
   constructor() { }
 
-  addBook(book: Book){
+  addBook(book: Book): void{
     this.books.push(book);
     this.multicastBookChanges();
   }
@@ -34,8 +34,8 @@ export class BookService {
     this.multicastBookChanges();
   }
 
-  deleteBook(index: number){
-    this.books.splice(1, index);
+  deleteBook(index: number): void{
+    this.books.splice(index, 1);
     this.multicastBookChanges();
   }
 
@@ -50,4 +50,9 @@ export class BookService {
   getBook(id: number): Book{
     return this.books[id];
   }
+
+  setBooks(books: Book[]): void{
+    this.books = books;
+    this.multicastBookChanges();
+}
 }

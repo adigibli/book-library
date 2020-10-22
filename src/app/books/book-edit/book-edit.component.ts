@@ -17,8 +17,8 @@ export class BookEditComponent implements OnInit {
   id: number;
 
   constructor(private bookService: BookService,
-    private router: Router,
-    private route: ActivatedRoute) { }
+              private router: Router,
+              private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.route.params.subscribe(
@@ -37,7 +37,7 @@ export class BookEditComponent implements OnInit {
       this.bookService.addBook(this.bookForm.value);
   }
 
-  this.navigateBack();
+    this.navigateBack();
   }
 
   onCancel(): void{
