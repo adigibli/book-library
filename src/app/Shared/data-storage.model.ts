@@ -9,7 +9,7 @@ import { Book } from '../books/Book.model';
   providedIn: 'root'
 })
 export class DataStorageService {
-    private bookLibraryUrl = 'https://booklibraryapi20201022094812.azurewebsites.net';
+    private bookLibraryUrl = 'https://booksapiproject.azurewebsites.net/api';
 
   constructor(private httpClient: HttpClient,
               private bookService: BookService) { }
@@ -18,7 +18,7 @@ export class DataStorageService {
   {
     const books = this.bookService.getBooks();
 
-    this.httpClient.put(this.bookLibraryUrl, books).subscribe(
+    this.httpClient.post(this.bookLibraryUrl, books).subscribe(
         response => {
             console.log(response);
         }

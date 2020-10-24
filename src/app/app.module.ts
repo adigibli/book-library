@@ -11,6 +11,8 @@ import { HeaderComponent } from './header/header/header.component';
 import { BookService } from './books/book.service';
 import { BooksComponent } from './books/books.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { DropdownDirective } from './Shared/dropdown.directive';
 
 @NgModule({
   declarations: [
@@ -20,13 +22,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     BookEditComponent,
     BookDetailsComponent,
     HeaderComponent,
-    BooksComponent
+    BooksComponent,
+    DropdownDirective
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [BookService],
   bootstrap: [AppComponent]
