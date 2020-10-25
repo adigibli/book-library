@@ -15,10 +15,10 @@ export class HeaderComponent implements OnInit {
   }
 
   onSaveData(): void{
-        this.dataStorageService.storeBook();
+        this.dataStorageService.storeBooks();
   }
 
   onFetchdata(): void{
-      this.dataStorageService.fetchBook();
+      this.dataStorageService.fetchBooks();
   }
 }

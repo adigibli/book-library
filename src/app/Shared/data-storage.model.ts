@@ -9,12 +9,12 @@ import { Book } from '../books/Book.model';
   providedIn: 'root'
 })
 export class DataStorageService {
-    private bookLibraryUrl = 'https://booksapiproject.azurewebsites.net/api';
+    private bookLibraryUrl = 'https://itc-d-bl-svc.azurewebsites.net/api/books';
 
   constructor(private httpClient: HttpClient,
               private bookService: BookService) { }
 
-  storeBook(): void
+  storeBooks(): void
   {
     const books = this.bookService.getBooks();
 
@@ -25,17 +25,10 @@ export class DataStorageService {
     )
   }
 
-  fetchBook(){
+  fetchBooks(){
       return this.httpClient.get<Book[]>(this.bookLibraryUrl)
-      .pipe(
-          // map( books => {
-          // return books.map( book => {
-          //     return {...book, ingredients: recipe.ingredients ? recipe.ingredients : []};
-          // });
-          // }),
-          tap(books => {
-            this.bookService.setBooks(books);
-          })
-      );
+      .subscribe(books => {
+        this.bookService.setBooks(books);
+      });
   }
 }

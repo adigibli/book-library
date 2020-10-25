@@ -22,7 +22,8 @@ export class BookService {
   //       'https://awoiaf.westeros.org/images/9/93/AGameOfThrones.jpg')
   // ];
 
-  constructor() { }
+  constructor() {
+   }
 
   addBook(book: Book): void{
     this.books.push(book);
