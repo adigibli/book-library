@@ -24,7 +24,7 @@ export class BookEditComponent implements OnInit {
     this.route.params.subscribe(
       (params: Params) => {
         this.id =  +params['id'];
-        this.mode = isNaN(this.id) ? BookMode.New: BookMode.Edit;
+        this.mode = isNaN(this.id) ? BookMode.New : BookMode.Edit;
         this.initForm();
       }
     );
