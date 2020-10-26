@@ -1,7 +1,6 @@
 import { BookService } from './../books/book.service';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, tap } from 'rxjs/operators';
 import { Book } from '../books/Book.model';
 
 
@@ -14,15 +13,13 @@ export class DataStorageService {
   constructor(private httpClient: HttpClient,
               private bookService: BookService) { }
 
-  storeBooks(): void
+  storeBook(book: Book): void
   {
-    const books = this.bookService.getBooks();
-
-    this.httpClient.post(this.bookLibraryUrl, books).subscribe(
+    this.httpClient.post(this.bookLibraryUrl, book).subscribe(
         response => {
             console.log(response);
         }
-    )
+    );
   }
 
   fetchBooks(){
@@ -30,5 +27,15 @@ export class DataStorageService {
       .subscribe(books => {
         this.bookService.setBooks(books);
       });
+  }
+
+  load(): Promise<any>  {
+    const promise = this.httpClient.get(this.bookLibraryUrl)
+      .toPromise()
+      .then(data => {
+        this.bookService.setBooks(data as Book[]);
+      });
+
+    return promise;
   }
 }

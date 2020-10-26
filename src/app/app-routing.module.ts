@@ -11,7 +11,8 @@ const routes: Routes = [
     {path: 'new', component: BookEditComponent},
     {path: ':id', component: BookDetailsComponent},
     {path: ':id/edit', component: BookEditComponent},
-  ]}
+  ]},
+  {path: 'author', component: BookEditComponent}
 ];
 
 @NgModule({

@@ -1,5 +1,6 @@
+import { DataStorageService } from 'src/app/Shared/data-storage.model';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -13,6 +14,10 @@ import { BooksComponent } from './books/books.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { DropdownDirective } from './Shared/dropdown.directive';
+
+export function appInit(dataStorageService: DataStorageService) {
+  return () => dataStorageService.load();
+}
 
 @NgModule({
   declarations: [
@@ -32,7 +37,14 @@ import { DropdownDirective } from './Shared/dropdown.directive';
     FormsModule,
     HttpClientModule
   ],
-  providers: [BookService],
+  providers: [BookService,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: appInit,
+      multi: true,
+      deps: [DataStorageService]
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

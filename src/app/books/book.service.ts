@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { Book } from './Book.model';
@@ -9,6 +10,7 @@ export class BookService {
 
   booksChanged = new Subject<Book[]>();
 
+  private bookLibraryUrl = 'https://itc-d-bl-svc.azurewebsites.net/api/books';
   private books: Book[] = [];
   //   new Book(1,
   //     'A Clash of Kings',
@@ -22,22 +24,40 @@ export class BookService {
   //       'https://awoiaf.westeros.org/images/9/93/AGameOfThrones.jpg')
   // ];
 
-  constructor() {
+  constructor(private httpClient: HttpClient,) {
    }
 
   addBook(book: Book): void{
     this.books.push(book);
     this.multicastBookChanges();
+
+    this.httpClient.post(this.bookLibraryUrl, book).subscribe(
+        response => {
+            console.log(response);
+        }
+    );
   }
 
   editBook(index: number, book: Book): void{
     this.books[index] = book;
     this.multicastBookChanges();
+
+    this.httpClient.post(this.bookLibraryUrl, [index, book]).subscribe(
+      response => {
+          console.log(response);
+      }
+  );
   }
 
   deleteBook(index: number): void{
     this.books.splice(index, 1);
     this.multicastBookChanges();
+
+    this.httpClient.delete(this.bookLibraryUrl + '/' + index).subscribe(
+      response => {
+          console.log(response);
+      }
+  );
   }
 
   getBooks(): Book[]{

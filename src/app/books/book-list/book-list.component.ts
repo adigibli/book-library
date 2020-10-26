@@ -34,4 +34,8 @@ export class BookListComponent implements OnInit, OnDestroy {
   onNewBook(): void{
     this.roter.navigate(['new'], {relativeTo: this.route});
   }
+
+  onNewAuthor(): void{
+    this.roter.navigate(['/author']);
+  }
 }
