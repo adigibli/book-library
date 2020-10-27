@@ -29,11 +29,17 @@ export class DataStorageService {
       });
   }
 
+    getPosts(){
+      return this.httpClient.get<Book[]>(this.bookLibraryUrl);
+    }
+
   load(): Promise<any>  {
     const promise = this.httpClient.get(this.bookLibraryUrl)
       .toPromise()
       .then(data => {
-        this.bookService.setBooks(data as Book[]);
+        Object.assign(this, data);
+        return data;
+        // this.bookService.setBooks(data as Book[]);
       });
 
     return promise;
