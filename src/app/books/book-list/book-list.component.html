@@ -3,17 +3,14 @@
   <div class="col-xs-3">
     <button class="btn btn-success" (click)="onNewBook()">Add Book</button>
   </div>
-  <div class="col-xs-9">
-    <button class="btn btn-success" (click)="onNewAuthor()">Add Author</button>
-  </div>
 </div>
 <hr>
 <div class="row">
   <div class="col-xs-12">
     <app-book-item
-      *ngFor="let bookItem of books; let i = index"
+      *ngFor="let bookItem of books"
       [book] = "bookItem"
-      [index] = "i"
+      [id] = "bookItem.id"
     ></app-book-item>
   </div>
 </div>

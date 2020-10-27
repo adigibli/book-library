@@ -15,8 +15,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { DropdownDirective } from './Shared/dropdown.directive';
 
-export function appInit(dataStorageService: DataStorageService) {
-  return () => dataStorageService.load();
+export function appInit(bookService: BookService) {
+  return () => bookService.load();
 }
 
 @NgModule({
@@ -42,7 +42,7 @@ export function appInit(dataStorageService: DataStorageService) {
       provide: APP_INITIALIZER,
       useFactory: appInit,
       multi: true,
-      deps: [DataStorageService]
+      deps: [BookService]
     }
   ],
   bootstrap: [AppComponent]

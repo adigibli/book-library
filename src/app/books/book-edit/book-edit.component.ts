@@ -32,10 +32,10 @@ export class BookEditComponent implements OnInit {
 
   onSubmit(): void{
     if(this.mode === BookMode.Edit) {
-      this.bookService.editBook(this.id, this.bookForm.value);
-  } else {
-      this.bookService.addBook(this.bookForm.value);
-  }
+        this.bookService.editBook(this.id, this.bookForm.value);
+    } else {
+        this.bookService.addBook(this.bookForm.value);
+    }
 
     this.navigateBack();
   }

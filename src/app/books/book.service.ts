@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
+import { DataStorageService } from '../Shared/data-storage.model';
 import { Book } from './Book.model';
 
 @Injectable({
@@ -24,40 +25,35 @@ export class BookService {
   //       'https://awoiaf.westeros.org/images/9/93/AGameOfThrones.jpg')
   // ];
 
-  constructor(private httpClient: HttpClient,) {
+  constructor(private dataStorageService: DataStorageService,) {
    }
 
-  addBook(book: Book): void{
-    this.books.push(book);
-    this.multicastBookChanges();
-
-    this.httpClient.post(this.bookLibraryUrl, book).subscribe(
-        response => {
-            console.log(response);
+  addBook(newBook: Book): void{
+    this.dataStorageService.add(newBook).subscribe(
+      book => {
+            this.books.push(book);
+            this.multicastBookChanges();
         }
     );
   }
 
-  editBook(index: number, book: Book): void{
-    this.books[index] = book;
-    this.multicastBookChanges();
-
-    this.httpClient.post(this.bookLibraryUrl, [index, book]).subscribe(
-      response => {
-          console.log(response);
+  editBook(index: number, updateBook: Book): void{
+    this.dataStorageService.update(index, updateBook).subscribe(
+      book => {
+        this.books[index] = book;
+        this.multicastBookChanges();
       }
   );
   }
 
-  deleteBook(index: number): void{
-    this.books.splice(index, 1);
-    this.multicastBookChanges();
-
-    this.httpClient.delete(this.bookLibraryUrl + '/' + index).subscribe(
-      response => {
-          console.log(response);
+  deleteBook(id: number): void{
+    this.dataStorageService.delete(id).subscribe(
+      () => {
+        this.books = this.books.filter(item => item.id !== id);
+        this.multicastBookChanges();
       }
-  );
+    );
+
   }
 
   getBooks(): Book[]{
@@ -69,11 +65,21 @@ export class BookService {
   }
 
   getBook(id: number): Book{
-    return this.books[id];
+    return this.books.find(book => book.id === id);
   }
 
   setBooks(books: Book[]): void{
     this.books = books;
     this.multicastBookChanges();
 }
+
+  load(): Promise<any>  {
+    const promise = this.dataStorageService.get()
+      .toPromise()
+      .then(data => {
+         this.setBooks(data as Book[]);
+      });
+
+    return promise;
+  }
 }

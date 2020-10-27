@@ -33,11 +33,6 @@ export class BookDetailsComponent implements OnInit {
 
   onDelete(): void{
     this.bookService.deleteBook(this.id);
-//     this.service.deletePost(post.id)
-//     .subscribe(response => {
-//       this.posts = this.posts.filter(item => item.id !== post.id);
-//     });
-// }
     this.router.navigate(['/books']);
   }
 

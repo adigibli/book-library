@@ -1,7 +1,7 @@
-import { BookService } from './../books/book.service';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Book } from '../books/Book.model';
+import { Observable } from 'rxjs';
 
 
 @Injectable({
@@ -10,38 +10,21 @@ import { Book } from '../books/Book.model';
 export class DataStorageService {
     private bookLibraryUrl = 'https://itc-d-bl-svc.azurewebsites.net/api/books';
 
-  constructor(private httpClient: HttpClient,
-              private bookService: BookService) { }
+  constructor(private httpClient: HttpClient) { }
 
-  storeBook(book: Book): void
-  {
-    this.httpClient.post(this.bookLibraryUrl, book).subscribe(
-        response => {
-            console.log(response);
-        }
-    );
-  }
-
-  fetchBooks(){
-      return this.httpClient.get<Book[]>(this.bookLibraryUrl)
-      .subscribe(books => {
-        this.bookService.setBooks(books);
-      });
-  }
-
-    getPosts(){
+    get():Observable<Book[]>{
       return this.httpClient.get<Book[]>(this.bookLibraryUrl);
     }
 
-  load(): Promise<any>  {
-    const promise = this.httpClient.get(this.bookLibraryUrl)
-      .toPromise()
-      .then(data => {
-        Object.assign(this, data);
-        return data;
-        // this.bookService.setBooks(data as Book[]);
-      });
+    add(book: Book): Observable<Book>{
+      return this.httpClient.post<Book>(this.bookLibraryUrl, book);
+    }
 
-    return promise;
-  }
+    update(id: number, book: Book): Observable<Book>{
+      return this.httpClient.put<Book>(this.bookLibraryUrl + '/' + id, book);
+    }
+
+    delete(id): Observable<{}>{
+      return this.httpClient.delete(this.bookLibraryUrl + '/' + id);
+    }
 }
