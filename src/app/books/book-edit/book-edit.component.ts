@@ -2,8 +2,10 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { BookService } from '../book.service';
 import { BookMode } from './../Book.model';
+import { CanComponentDeactivate } from './can-deactivate-guard.service';
 
 
 @Component({
@@ -11,10 +13,11 @@ import { BookMode } from './../Book.model';
   templateUrl: './book-edit.component.html',
   styleUrls: ['./book-edit.component.css']
 })
-export class BookEditComponent implements OnInit {
+export class BookEditComponent implements OnInit, CanComponentDeactivate  {
   bookForm: FormGroup;
   mode: BookMode;
   id: number;
+  changesSaved: boolean = false;
 
   constructor(private bookService: BookService,
               private router: Router,
@@ -30,6 +33,22 @@ export class BookEditComponent implements OnInit {
     );
   }
 
+  canDeactivate():  Observable<boolean> | Promise<boolean> | boolean{
+    if(this.mode === BookMode.Edit){
+      const book = this.bookService.getBook(this.id);
+
+      if((this.title.value !== book.title ||
+         this.author.value != book.author ||
+         this.description.value != book.description ||
+         this.imagePath.value != book.imagePath)
+         && !this.changesSaved){
+          return confirm('Do you want to discard the changes?');
+      }
+
+      return true;
+    }
+  }
+
   onSubmit(): void{
     if(this.mode === BookMode.Edit) {
         this.bookService.editBook(this.id, this.bookForm.value);
@@ -37,6 +56,7 @@ export class BookEditComponent implements OnInit {
         this.bookService.addBook(this.bookForm.value);
     }
 
+    this.changesSaved = true;
     this.navigateBack();
   }
 
@@ -58,6 +78,14 @@ export class BookEditComponent implements OnInit {
 
   get author(): AbstractControl{
     return this.bookForm.get('author');
+  }
+
+  get description(): AbstractControl{
+    return this.bookForm.get('description');
+  }
+
+  get imagePath(): AbstractControl{
+    return this.bookForm.get('imagePath');
   }
 
   private initForm(): void{

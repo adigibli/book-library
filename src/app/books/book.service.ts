@@ -37,9 +37,10 @@ export class BookService {
     );
   }
 
-  editBook(index: number, updateBook: Book): void{
-    this.dataStorageService.update(index, updateBook).subscribe(
+  editBook(id: number, updateBook: Book): void{
+    this.dataStorageService.update(id, updateBook).subscribe(
       book => {
+        var index =  this.books.findIndex(b => b.id  === id);
         this.books[index] = book;
         this.multicastBookChanges();
       }

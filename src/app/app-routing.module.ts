@@ -3,14 +3,14 @@ import { BookDetailsComponent } from './books/book-details/book-details.componen
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { BooksComponent } from './books/books.component';
+import { CanDeactivateGuardService } from './books/book-edit/can-deactivate-guard.service';
 
 const routes: Routes = [
   {path: '', redirectTo: '/books', pathMatch: 'full'},
   {path: 'books', component: BooksComponent, children: [
     {path: '', redirectTo: '/books', pathMatch: 'full'},
-    //{path: 'new', component: BookEditComponent},
     {path: ':id', component: BookDetailsComponent},
-    {path: ':id/edit', component: BookEditComponent},
+    {path: ':id/edit', component: BookEditComponent, canDeactivate: [CanDeactivateGuardService]},
   ]},
   {path: 'new', component: BookEditComponent},
 ];

@@ -14,6 +14,7 @@ import { BooksComponent } from './books/books.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { DropdownDirective } from './Shared/dropdown.directive';
+import { CanDeactivateGuardService } from './books/book-edit/can-deactivate-guard.service';
 
 export function appInit(bookService: BookService) {
   return () => bookService.load();
@@ -37,7 +38,7 @@ export function appInit(bookService: BookService) {
     FormsModule,
     HttpClientModule
   ],
-  providers: [BookService,
+  providers: [BookService, CanDeactivateGuardService,
     {
       provide: APP_INITIALIZER,
       useFactory: appInit,
