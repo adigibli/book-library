@@ -34,17 +34,10 @@ export class BookEditComponent implements OnInit, CanComponentDeactivate  {
   }
 
   canDeactivate():  Observable<boolean> | Promise<boolean> | boolean{
-    if(this.mode === BookMode.Edit){
-      const book = this.bookService.getBook(this.id);
-
-      if((this.title.value !== book.title ||
-         this.author.value != book.author ||
-         this.description.value != book.description ||
-         this.imagePath.value != book.imagePath)
-         && !this.changesSaved){
+    if (this.mode === BookMode.Edit){
+      if (this.bookForm.dirty && !this.changesSaved){
           return confirm('Do you want to discard the changes?');
       }
-
       return true;
     }
   }

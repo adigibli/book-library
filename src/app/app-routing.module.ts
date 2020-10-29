@@ -1,3 +1,4 @@
+import { BooksResolverService } from './books/books-resolver.service';
 import { BookEditComponent } from './books/book-edit/book-edit.component';
 import { BookDetailsComponent } from './books/book-details/book-details.component';
 import { NgModule } from '@angular/core';
@@ -9,7 +10,7 @@ const routes: Routes = [
   {path: '', redirectTo: '/books', pathMatch: 'full'},
   {path: 'books', component: BooksComponent, children: [
     {path: '', redirectTo: '/books', pathMatch: 'full'},
-    {path: ':id', component: BookDetailsComponent},
+    {path: ':id', component: BookDetailsComponent},// , resolve: [BooksResolverService]},
     {path: ':id/edit', component: BookEditComponent, canDeactivate: [CanDeactivateGuardService]},
   ]},
   {path: 'new', component: BookEditComponent},

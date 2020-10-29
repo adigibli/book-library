@@ -14,8 +14,7 @@ export class BookListComponent implements OnInit, OnDestroy {
   subscription: Subscription;
 
   constructor(private bookService: BookService,
-              //private route: ActivatedRoute,
-              private roter: Router) {
+              private router: Router) {
     this.subscription = this.bookService.booksChanged
       .subscribe(
         (books: Book[]) => {
@@ -23,16 +22,17 @@ export class BookListComponent implements OnInit, OnDestroy {
         }
       );
 
-      this.books = this.bookService.getBooks();
+    this.books = this.bookService.getBooks();
    }
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
 
   ngOnInit(): void {
+
   }
 
   onNewBook(): void{
-    this.roter.navigate(['new']);
+    this.router.navigate(['new']);
   }
 }
