@@ -50,7 +50,7 @@ export class BookEditComponent implements OnInit, CanComponentDeactivate  {
     }
 
     this.changesSaved = true;
-    this.navigateBack();
+    //this.navigateBack();
   }
 
   onCancel(): void{

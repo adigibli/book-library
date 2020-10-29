@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { DataStorageService } from '../Shared/data-storage.model';
 import { Book } from './Book.model';
@@ -25,14 +26,18 @@ export class BookService {
   //       'https://awoiaf.westeros.org/images/9/93/AGameOfThrones.jpg')
   // ];
 
-  constructor(private dataStorageService: DataStorageService,) {
-   }
+  constructor(
+    private dataStorageService: DataStorageService,
+    private router: Router,
+    private route: ActivatedRoute
+    ) {}
 
   addBook(newBook: Book): void{
     this.dataStorageService.add(newBook).subscribe(
       book => {
             this.books.push(book);
             this.multicastBookChanges();
+            this.router.navigate(['books/' + book.id], {relativeTo: this.route});
         }
     );
   }
@@ -42,9 +47,13 @@ export class BookService {
       book => {
         var index =  this.books.findIndex(b => b.id  === id);
         this.books[index] = book;
+        //this.books[index].id = id;
         this.multicastBookChanges();
+        this.router.navigate(['books/' + id], {relativeTo: this.route});
       }
-  );
+    );
+
+
   }
 
   deleteBook(id: number): void{

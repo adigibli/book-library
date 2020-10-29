@@ -8,11 +8,26 @@ import { CanDeactivateGuardService } from './books/book-edit/can-deactivate-guar
 
 const routes: Routes = [
   {path: '', redirectTo: '/books', pathMatch: 'full'},
-  {path: 'books', component: BooksComponent, children: [
-    {path: '', redirectTo: '/books', pathMatch: 'full'},
-    {path: ':id', component: BookDetailsComponent},// , resolve: [BooksResolverService]},
-    {path: ':id/edit', component: BookEditComponent, canDeactivate: [CanDeactivateGuardService]},
-  ]},
+  {path: 'books', component: BooksComponent, children:
+    [
+      {
+        path: '',
+        redirectTo: '/books',
+        pathMatch: 'full'
+      },
+      {
+        path: ':id',
+        component: BookDetailsComponent,
+        resolve: [BooksResolverService]
+      },
+      {
+        path: ':id/edit',
+        component: BookEditComponent,
+        canDeactivate: [CanDeactivateGuardService],
+        resolve: [BooksResolverService]
+      }
+    ]
+  },
   {path: 'new', component: BookEditComponent},
 ];
 

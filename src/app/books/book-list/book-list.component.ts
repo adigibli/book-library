@@ -29,7 +29,6 @@ export class BookListComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-
   }
 
   onNewBook(): void{
