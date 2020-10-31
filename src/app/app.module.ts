@@ -15,6 +15,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { DropdownDirective } from './Shared/dropdown.directive';
 import { CanDeactivateGuardService } from './books/book-edit/can-deactivate-guard.service';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 export function appInit(bookService: BookService) {
   return () => bookService.load();
@@ -29,7 +30,8 @@ export function appInit(bookService: BookService) {
     BookDetailsComponent,
     HeaderComponent,
     BooksComponent,
-    DropdownDirective
+    DropdownDirective,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,

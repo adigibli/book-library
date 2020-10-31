@@ -9,22 +9,25 @@ import { tap } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
-export class BooksResolverService  implements Resolve<Book[]> {
+export class BooksResolverService  implements Resolve<Book> {
 
   constructor(private dataStorageService: DataStorageService,
               private bookService: BookService) { }
 
-    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Book[] | Observable<Book[]> | Promise<Book[]> {
-        const books = this.bookService.getBooks();
+    resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Book | Observable<Book> | Promise<Book> {
+    //     const books = this.bookService.getBooks();
 
-        if ( books.length === 0) {
-            return this.dataStorageService.get()
-            .pipe(
-            tap(data => {
-               this.bookService.setBooks(data as Book[]);
-            }));
-        } else {
-            return books;
-        }
+    //     if ( books.length === 0) {
+    //         return this.dataStorageService.get()
+    //         .pipe(
+    //         tap(data => {
+    //            this.bookService.setBooks(data as Book[]);
+    //         }));
+    //     } else {
+    //         return books;
+    //     }
+    // }
+
+    return this.bookService.getBook(+route.params['id']);
     }
 }

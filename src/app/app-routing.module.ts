@@ -5,6 +5,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { BooksComponent } from './books/books.component';
 import { CanDeactivateGuardService } from './books/book-edit/can-deactivate-guard.service';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/books', pathMatch: 'full'},
@@ -24,11 +25,19 @@ const routes: Routes = [
         path: ':id/edit',
         component: BookEditComponent,
         canDeactivate: [CanDeactivateGuardService],
-        resolve: [BooksResolverService]
+        // resolve: [BooksResolverService]
       }
     ]
   },
   {path: 'new', component: BookEditComponent},
+  {
+    path: 'page-not-found',
+    component: PageNotFoundComponent
+  },
+  {
+    path: "**",
+    redirectTo: 'page-not-found'
+  }
 ];
 
 @NgModule({
