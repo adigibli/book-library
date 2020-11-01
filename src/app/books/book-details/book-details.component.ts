@@ -1,7 +1,7 @@
 import { BookService } from './../book.service';
 import { Book } from './../Book.model';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { ActivatedRoute, Params, Router, Data } from '@angular/router';
 
 @Component({
   selector: 'app-book-details',
@@ -18,11 +18,13 @@ export class BookDetailsComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit(): void {
-    this.route.params
+    this.route.data
       .subscribe(
-        (params: Params) => {
-          this.id = +params['id'];
-          this.book = this.bookService.getBook(this.id);
+        (data: Data) => {
+          //this.id = +params['id'];
+          this.book = data['test'];
+          //console.log('the book is: ' + this.book.author);
+          //this.book = this.bookService.getBook(this.id);
         }
       );
   }

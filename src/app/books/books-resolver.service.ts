@@ -1,6 +1,6 @@
 import { BookService } from './book.service';
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot } from '@angular/router';
 import { DataStorageService } from '../Shared/data-storage.model';
 import { Book } from './Book.model';
 import { Observable } from 'rxjs';
@@ -11,7 +11,7 @@ import { tap } from 'rxjs/operators';
 })
 export class BooksResolverService  implements Resolve<Book> {
 
-  constructor(private dataStorageService: DataStorageService,
+  constructor(private router: Router,
               private bookService: BookService) { }
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Book | Observable<Book> | Promise<Book> {
@@ -27,7 +27,12 @@ export class BooksResolverService  implements Resolve<Book> {
     //         return books;
     //     }
     // }
+    const book = this.bookService.getBook(+route.params['id']);
 
-    return this.bookService.getBook(+route.params['id']);
+    if(!book){
+      this.router.navigate(['/books']);
+    }
+
+    return book;
     }
 }

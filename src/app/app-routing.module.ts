@@ -19,7 +19,7 @@ const routes: Routes = [
       {
         path: ':id',
         component: BookDetailsComponent,
-        resolve: [BooksResolverService]
+        resolve: {test: BooksResolverService}
       },
       {
         path: ':id/edit',

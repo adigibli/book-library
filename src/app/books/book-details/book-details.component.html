@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row"  style="margin-top: 10px;">
   <div class="col-xs-1">
     <button class="btn btn-primary" (click)="onEdit()">Edit</button>
   </div>
@@ -21,8 +21,9 @@
     <h1>{{ book.title }}</h1>
     <h3>By {{ book.author }}</h3>
     <hr>
-    <h4>Publication date: {{ book.publicationDate }}</h4>
+    <h4>Publication date: {{ book.publicationDate | date : 'd MMM y' }}</h4>
     <h4>Number of pages: {{ book.pages }}</h4>
+    <hr>
     <p>{{ book.description }}</p>
   </div>
 </div>
