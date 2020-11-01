@@ -73,6 +73,14 @@ export class BookEditComponent implements OnInit, CanComponentDeactivate  {
     return this.bookForm.get('author');
   }
 
+  get publicationDate(): AbstractControl{
+    return this.bookForm.get('publicationDate');
+  }
+
+  get pages(): AbstractControl{
+    return this.bookForm.get('pages');
+  }
+
   get description(): AbstractControl{
     return this.bookForm.get('description');
   }
@@ -84,6 +92,8 @@ export class BookEditComponent implements OnInit, CanComponentDeactivate  {
   private initForm(): void{
     let title = '';
     let author = '';
+    let publicationDate = new Date();
+    let pages = 1;
     let description = '';
     let imagePath = '';
 
@@ -92,6 +102,8 @@ export class BookEditComponent implements OnInit, CanComponentDeactivate  {
 
       title = book.title;
       author = book.author;
+      publicationDate = book.publicationDate;
+      pages = book.pages;
       description = book.description;
       imagePath = book.imagePath;
     }
@@ -99,6 +111,8 @@ export class BookEditComponent implements OnInit, CanComponentDeactivate  {
     this.bookForm = new FormGroup({
       'title': new FormControl(title, Validators.required),
       'author': new FormControl(author, Validators.required),
+      'publicationDate': new FormControl(publicationDate, Validators.required),
+      'pages': new FormControl(pages, [Validators.required, Validators.pattern('[1-9][0-9]*')]),
       'imagePath': new FormControl(imagePath, Validators.required),
       'description': new FormControl(description, Validators.required)
     });
