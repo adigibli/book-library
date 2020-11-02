@@ -38,7 +38,7 @@
         <div class="col-xs-12">
             <div class="form-group">
                 <label for="publicationDate">Publication Date</label>
-                <input type="date" id="publicationDate" class="form-control input-sm" formControlName="publicationDate">
+                <input type="date" id="publicationDate" class="form-control input-sm" formControlName="publicationDate" format>
                 <span class="text-danger" *ngIf="publicationDate.invalid && publicationDate.touched">Book title is required</span>
             </div>
         </div>

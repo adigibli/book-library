@@ -12,7 +12,7 @@ export class DataStorageService {
 
   constructor(private httpClient: HttpClient) { }
 
-    get():Observable<Book[]>{
+    get(): Observable<Book[]>{
       return this.httpClient.get<Book[]>(this.bookLibraryUrl);
     }
 

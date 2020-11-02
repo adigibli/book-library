@@ -21,10 +21,8 @@ export class BookDetailsComponent implements OnInit {
     this.route.data
       .subscribe(
         (data: Data) => {
-          //this.id = +params['id'];
           this.book = data['test'];
-          //console.log('the book is: ' + this.book.author);
-          //this.book = this.bookService.getBook(this.id);
+          this.id = this.book.id;
         }
       );
   }

@@ -1,4 +1,5 @@
 
+import { formatDate } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
@@ -17,7 +18,7 @@ export class BookEditComponent implements OnInit, CanComponentDeactivate  {
   bookForm: FormGroup;
   mode: BookMode;
   id: number;
-  changesSaved: boolean = false;
+  changesSaved = false;
 
   constructor(private bookService: BookService,
               private router: Router,
@@ -33,7 +34,7 @@ export class BookEditComponent implements OnInit, CanComponentDeactivate  {
     );
   }
 
-  canDeactivate():  Observable<boolean> | Promise<boolean> | boolean{
+  canDeactivate(): Observable<boolean> | Promise<boolean> | boolean{
     if (this.mode === BookMode.Edit){
       if (this.bookForm.dirty && !this.changesSaved){
           return confirm('Do you want to discard the changes?');
@@ -111,7 +112,7 @@ export class BookEditComponent implements OnInit, CanComponentDeactivate  {
     this.bookForm = new FormGroup({
       'title': new FormControl(title, Validators.required),
       'author': new FormControl(author, Validators.required),
-      'publicationDate': new FormControl(publicationDate, Validators.required),
+      'publicationDate': new FormControl([formatDate(publicationDate, 'MM/dd/yyy', 'en'), [Validators.required]]),
       'pages': new FormControl(pages, [Validators.required, Validators.pattern('[1-9][0-9]*')]),
       'imagePath': new FormControl(imagePath, Validators.required),
       'description': new FormControl(description, Validators.required)
