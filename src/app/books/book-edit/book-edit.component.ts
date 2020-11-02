@@ -100,10 +100,9 @@ export class BookEditComponent implements OnInit, CanComponentDeactivate  {
 
     if (this.mode === BookMode.Edit){
       const book = this.bookService.getBook(this.id);
-
       title = book.title;
       author = book.author;
-      publicationDate = book.publicationDate;
+      publicationDate = new Date(book.publicationDate).toISOString().split('T')[0];
       pages = book.pages;
       description = book.description;
       imagePath = book.imagePath;
@@ -112,7 +111,7 @@ export class BookEditComponent implements OnInit, CanComponentDeactivate  {
     this.bookForm = new FormGroup({
       'title': new FormControl(title, Validators.required),
       'author': new FormControl(author, Validators.required),
-      'publicationDate': new FormControl([formatDate(publicationDate, 'MM/dd/yyy', 'en'), [Validators.required]]),
+      'publicationDate': new FormControl(publicationDate, Validators.required),
       'pages': new FormControl(pages, [Validators.required, Validators.pattern('[1-9][0-9]*')]),
       'imagePath': new FormControl(imagePath, Validators.required),
       'description': new FormControl(description, Validators.required)
