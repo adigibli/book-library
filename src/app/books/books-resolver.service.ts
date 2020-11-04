@@ -15,18 +15,7 @@ export class BooksResolverService  implements Resolve<Book> {
               private bookService: BookService) { }
 
     resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Book | Observable<Book> | Promise<Book> {
-    //     const books = this.bookService.getBooks();
 
-    //     if ( books.length === 0) {
-    //         return this.dataStorageService.get()
-    //         .pipe(
-    //         tap(data => {
-    //            this.bookService.setBooks(data as Book[]);
-    //         }));
-    //     } else {
-    //         return books;
-    //     }
-    // }
     const book = this.bookService.getBook(+route.params['id']);
 
     if(!book){

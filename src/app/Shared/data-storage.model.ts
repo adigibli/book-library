@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class DataStorageService {
-    private bookLibraryUrl = 'https://itc-d-bl-svc.azurewebsites.net/api/books';
+    private bookLibraryUrl = 'https://mmn-p-bl-svc.azurewebsites.net/api/books';
 
   constructor(private httpClient: HttpClient) { }
 

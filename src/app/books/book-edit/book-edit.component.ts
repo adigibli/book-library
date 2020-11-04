@@ -51,7 +51,6 @@ export class BookEditComponent implements OnInit, CanComponentDeactivate  {
     }
 
     this.changesSaved = true;
-    //this.navigateBack();
   }
 
   onCancel(): void{
@@ -93,7 +92,7 @@ export class BookEditComponent implements OnInit, CanComponentDeactivate  {
   private initForm(): void{
     let title = '';
     let author = '';
-    let publicationDate = new Date();
+    let publicationDate;
     let pages = 1;
     let description = '';
     let imagePath = '';

@@ -14,17 +14,6 @@ export class BookService {
 
   private bookLibraryUrl = 'https://itc-d-bl-svc.azurewebsites.net/api/books';
   private books: Book[] = [];
-  //   new Book(1,
-  //     'A Clash of Kings',
-  //     'George R. R. Martin',
-  //     'The scond book of the series Game of Thtones',
-  //     'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1562726234l/13496.jpg'),
-  //     new Book(2,
-  //       'A Storm of Swords ',
-  //       'George R. R. Martin',
-  //       'The first book of the series Game of Thtones',
-  //       'https://awoiaf.westeros.org/images/9/93/AGameOfThrones.jpg')
-  // ];
 
   constructor(
     private dataStorageService: DataStorageService,
@@ -47,7 +36,6 @@ export class BookService {
       book => {
         var index =  this.books.findIndex(b => b.id  === id);
         this.books[index] = book;
-        //this.books[index].id = id;
         this.multicastBookChanges();
         this.router.navigate(['books/' + id], {relativeTo: this.route});
       }
