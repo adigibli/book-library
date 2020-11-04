@@ -16,6 +16,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { DropdownDirective } from './Shared/dropdown.directive';
 import { CanDeactivateGuardService } from './books/book-edit/can-deactivate-guard.service';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { BookStartComponent } from './books/book-start/book-start.component';
 
 export function appInit(bookService: BookService) {
   return () => bookService.load();
@@ -31,7 +32,8 @@ export function appInit(bookService: BookService) {
     HeaderComponent,
     BooksComponent,
     DropdownDirective,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    BookStartComponent
   ],
   imports: [
     BrowserModule,

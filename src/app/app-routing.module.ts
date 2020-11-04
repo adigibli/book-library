@@ -6,16 +6,13 @@ import { Routes, RouterModule } from '@angular/router';
 import { BooksComponent } from './books/books.component';
 import { CanDeactivateGuardService } from './books/book-edit/can-deactivate-guard.service';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { BookStartComponent } from './books/book-start/book-start.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/books', pathMatch: 'full'},
   {path: 'books', component: BooksComponent, children:
     [
-      {
-        path: '',
-        redirectTo: '/books',
-        pathMatch: 'full'
-      },
+      { path: '', component: BookStartComponent },
       {
         path: ':id',
         component: BookDetailsComponent,
@@ -25,7 +22,7 @@ const routes: Routes = [
         path: ':id/edit',
         component: BookEditComponent,
         canDeactivate: [CanDeactivateGuardService],
-        // resolve: [BooksResolverService]
+        resolve: [BooksResolverService]
       }
     ]
   },

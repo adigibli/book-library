@@ -1,5 +1,4 @@
 
-import { formatDate } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
@@ -7,7 +6,6 @@ import { Observable } from 'rxjs';
 import { BookService } from '../book.service';
 import { BookMode } from './../Book.model';
 import { CanComponentDeactivate } from './can-deactivate-guard.service';
-
 
 @Component({
   selector: 'app-book-edit',
